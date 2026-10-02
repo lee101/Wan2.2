@@ -12,7 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .cg_taylor_wan22_forward import CGTaylor_wan22_forward
-from .wan22_pipeline_moe import wan22_pipeline_moe
+from .cg_taylor_wan22_forward import (
+    CGTaylor_wan22_forward,
+    MoECGTaylorPipeline,
+    inject_cg_taylor_moe,
+    restore_original_forward,
+    original_wan22_forward,
+)
+from .wan22_pipeline_moe import (
+    enable_cg_taylor_moe_acceleration,
+    disable_cg_taylor_moe_acceleration,
+    cg_taylor_moe_generate,
+    create_cg_taylor_wan_t2v,
+)
 
-__all__ = ["CGTaylor_wan22_forward", "wan22_pipeline_moe"]
+__all__ = [
+    "CGTaylor_wan22_forward",
+    "MoECGTaylorPipeline",
+    "inject_cg_taylor_moe",
+    "restore_original_forward",
+    "original_wan22_forward",
+    "enable_cg_taylor_moe_acceleration",
+    "disable_cg_taylor_moe_acceleration",
+    "cg_taylor_moe_generate",
+    "create_cg_taylor_wan_t2v",
+]
