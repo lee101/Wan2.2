@@ -5,3 +5,30 @@ tmp_examples*
 new_checkpoint*
 batch_test*
 nohup*
+
+# Model checkpoints and weights (multi-GB, downloadable from HuggingFace/ModelScope)
+*.safetensors
+*.pth
+*.pt
+*.bin
+*.ckpt
+*.onnx
+
+# Local model download directories (upstream Wan-Video/Wan2.2 does not track these)
+Wan2.2-TI2V-5B/
+Wan2.2T2V-A14B/
+Wan2.2-I2V-A14B/
+models/
+checkpoints/
+
+# Vendored third-party checkouts (keep as a submodule/clone, not vendored source)
+PaddleMIX/
+PaddleNLP/
+
+# Local secrets and environment
+.env
+.env.*
+*.pem
+*.key
+secrets.yaml
+secrets.yml
