@@ -1,10 +1,10 @@
-# 🚀 UV Installation Guide for WAN2.2 Ultra-Fast Optimizations
+# UV Installation Guide for WAN2.2 Ultra-Fast Optimizations
 
 **Lightning-fast dependency installation using the UV package manager**
 
 UV provides significantly faster dependency resolution and installation compared to pip, making it perfect for setting up the complex optimization stack required for ultra-fast video generation.
 
-## ⚡ Quick Start with UV
+## Quick Start with UV
 
 ### 1. Install Everything (Recommended)
 ```bash
@@ -41,7 +41,7 @@ source .venv/bin/activate  # Linux/Mac
 uv pip install -r requirements/all.txt
 ```
 
-## 📊 UV vs Pip Performance Comparison
+## UV vs Pip Performance Comparison
 
 | Operation | Pip | UV | Speedup |
 |-----------|-----|-----|---------|
@@ -50,7 +50,7 @@ uv pip install -r requirements/all.txt
 | Environment creation | 25s | 4s | **6x faster** |
 | Cache utilization | Limited | Excellent | **Much better** |
 
-## 🛠️ Installation Options
+## Installation Options
 
 ### Option 1: Automated Installer (Recommended)
 ```bash
@@ -98,7 +98,7 @@ uv pip install torchao
 uv pip install psutil gpustat memory-profiler
 ```
 
-## 📁 Requirements File Structure
+## Requirements File Structure
 
 ### `requirements.in` - Source Requirements
 - Main requirements file with optimization dependencies
@@ -131,7 +131,7 @@ requirements/
 - No optimization libraries
 - Expected speedup: 1x (baseline)
 
-## 🔧 Advanced UV Usage
+## Advanced UV Usage
 
 ### Dependency Resolution
 ```bash
@@ -169,7 +169,7 @@ uv cache clean
 uv pip install --cache-dir ./custom-cache -r requirements/all.txt
 ```
 
-## 🎯 GPU-Specific Installation
+## GPU-Specific Installation
 
 ### NVIDIA RTX 4090/4080/4070 Ti (Ada Lovelace)
 ```bash
@@ -215,7 +215,7 @@ uv pip install cache-dit tomesd
 # Enable CPU offloading and VAE tiling in code
 ```
 
-## 🔍 Installation Verification
+## Installation Verification
 
 ### Manual Verification
 ```bash
@@ -250,13 +250,13 @@ tests = {
 for name, test in tests.items():
     try:
         exec(test)
-        print(f'✅ {name}')
+        print(f'{name}')
     except ImportError:
-        print(f'❌ {name}')
+        print(f'{name}')
 "
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### UV Installation Issues
 ```bash
@@ -316,7 +316,7 @@ uv pip install tomesd           # Token merging second
 uv pip install xformers        # Memory-efficient attention last
 ```
 
-## 📈 Performance Optimization Tips
+## Performance Optimization Tips
 
 ### 1. Use UV's Parallel Installation
 ```bash
@@ -348,20 +348,20 @@ source .venv-dev/bin/activate && uv pip install -r requirements/all.txt
 source .venv-prod/bin/activate && uv pip install -r requirements/optimized.txt
 ```
 
-## 🎉 Success Checklist
+## Success Checklist
 
 After installation, you should have:
 
-- ✅ **UV Package Manager**: Fast dependency resolution
-- ✅ **PyTorch with CUDA**: GPU acceleration support  
-- ✅ **WAN2.2 Core**: Basic video generation capability
-- ✅ **TaylorSeer**: 5x speedup optimization
-- ✅ **Flash Attention**: Memory-efficient attention
-- ✅ **Token Merging**: Smart token reduction
-- ✅ **FP8 Quantization**: Hardware-specific acceleration
-- ✅ **Monitoring Tools**: Performance tracking
+- **UV Package Manager**: Fast dependency resolution
+- **PyTorch with CUDA**: GPU acceleration support
+- **WAN2.2 Core**: Basic video generation capability
+- **TaylorSeer**: 5x speedup optimization
+- **Flash Attention**: Memory-efficient attention
+- **Token Merging**: Smart token reduction
+- **FP8 Quantization**: Hardware-specific acceleration
+- **Monitoring Tools**: Performance tracking
 
-## 🚀 Ready to Generate!
+## Ready to Generate!
 
 ```bash
 # Test your ultra-fast setup
@@ -374,4 +374,4 @@ python examples/ultimate_optimizer.py \
 # Expected: 2-3 seconds on RTX 4090 (vs 45+ seconds baseline)
 ```
 
-**Enjoy lightning-fast installation and 15-25x faster video generation! ⚡**
+**Enjoy lightning-fast installation and 15-25x faster video generation! **

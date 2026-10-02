@@ -2,7 +2,7 @@
 
 This directory contains highly optimized examples for WAN2.2 video generation models, implementing state-of-the-art acceleration techniques for production-ready performance.
 
-## 🚀 Available Optimizations
+## Available Optimizations
 
 ### TaylorSeer Acceleration (5x speedup)
 - **Revolutionary optimization technique** achieving 5× acceleration with minimal quality loss
@@ -34,7 +34,7 @@ This directory contains highly optimized examples for WAN2.2 video generation mo
 - **Mixed Precision**: FP16/BF16 support for 50% memory savings
 - **Sequential Offloading**: Process large models on consumer hardware
 
-## 📁 Examples
+## Examples
 
 ### `optimized_t2v_12b.py`
 High-performance Text-to-Video generation with comprehensive optimizations.
@@ -89,7 +89,7 @@ python examples/optimized_i2v.py \
     --optimization_level maximum
 ```
 
-## 🛠️ Installation Requirements
+## Installation Requirements
 
 ### Core Dependencies
 ```bash
@@ -114,7 +114,7 @@ pip install torchao
 - **Recommended**: RTX 4090 (24GB VRAM) for full optimization stack
 - **Enterprise**: H100 (80GB VRAM) for maximum performance with FP8
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
 
 ### Expected Speedups (Single GPU)
 | Optimization Level | Total Speedup | Memory Usage | Quality Loss |
@@ -132,7 +132,7 @@ pip install torchao
 | H100      | 1280×720   | 28.5 FPS       | 5.2 FPS       | 5.5x    |
 | A100      | 1280×720   | 22.1 FPS       | 4.1 FPS       | 5.4x    |
 
-## ⚙️ Optimization Levels
+## Optimization Levels
 
 ### `basic`
 - FP16/BF16 precision
@@ -155,7 +155,7 @@ pip install torchao
 - PyTorch compilation
 - Adaptive CFG scheduling
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### TaylorSeer Configuration
 ```python
@@ -182,7 +182,7 @@ config = TaylorSeerConfig(
 - **12 steps**: 24% time, 85% quality
 - **6 steps**: 12% time, 75% quality
 
-## 🎯 Best Practices
+## Best Practices
 
 ### For Development
 1. Start with `medium` optimization level
@@ -202,7 +202,7 @@ config = TaylorSeerConfig(
 3. Use higher sampling steps for critical content
 4. Test optimizations on representative prompts
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 - **CUDA OOM**: Reduce batch size, enable CPU offloading
@@ -216,13 +216,13 @@ config = TaylorSeerConfig(
 3. Monitor GPU utilization during generation
 4. Profile memory usage to identify bottlenecks
 
-## 📚 References
+## References
 
 - [TaylorSeer Paper](https://arxiv.org/abs/2xxx.xxxxx) - Revolutionary acceleration technique
 - [Flash Attention](https://github.com/Dao-AILab/flash-attention) - Efficient attention implementation
 - [Token Merging](https://github.com/facebookresearch/ToMe) - Token reduction for speedup
 - [WAN2.2 Documentation](../README.md) - Original model documentation
 
-## 🤝 Contributing
+## Contributing
 
 Feel free to contribute additional optimizations, benchmarks, or improvements to these examples. All contributions should maintain compatibility with the existing optimization framework.

@@ -94,13 +94,13 @@ class OptimizedI2VPipeline:
                 multi_gpu=False             # Single GPU for this example
             )
             enable_cache(self.pipeline, config)
-            logging.info("✓ TaylorSeer enabled - expecting 5x speedup")
+            logging.info("TaylorSeer enabled - expecting 5x speedup")
         
         # 2. Flash Attention (1.3x speedup, linear memory scaling)
         if FLASH_ATTN_AVAILABLE and self.optimization_level in ["medium", "high", "maximum"]:
             logging.info("Enabling Flash Attention 2...")
             self._enable_flash_attention()
-            logging.info("✓ Flash Attention enabled - 33% speedup expected")
+            logging.info("Flash Attention enabled - 33% speedup expected")
         
         # 3. FP8 Quantization (2.3x speedup with 40% memory reduction on H100/RTX)
         if TORCHAO_AVAILABLE and self.optimization_level == "maximum":
@@ -112,7 +112,7 @@ class OptimizedI2VPipeline:
             logging.info("Enabling Token Merging...")
             # Apply 30% token merging for optimal speed/quality balance
             tomesd.apply_patch(self.pipeline, ratio=0.3)
-            logging.info("✓ Token merging enabled - 30% token reduction")
+            logging.info("Token merging enabled - 30% token reduction")
         
         # 5. Memory optimizations
         self._apply_memory_optimizations()
@@ -153,7 +153,7 @@ class OptimizedI2VPipeline:
                 # Apply FP8 weight-only quantization
                 if hasattr(self.pipeline, 'dit'):
                     quantize_(self.pipeline.dit, float8_weight_only())
-                    logging.info("✓ FP8 quantization applied to DiT model")
+                    logging.info("FP8 quantization applied to DiT model")
                     
             else:
                 logging.info("GPU doesn't support FP8 - skipping quantization")
@@ -168,16 +168,16 @@ class OptimizedI2VPipeline:
         # Enable model CPU offloading
         if hasattr(self.pipeline, 'enable_model_cpu_offload'):
             self.pipeline.enable_model_cpu_offload()
-            logging.info("✓ Model CPU offloading enabled")
+            logging.info("Model CPU offloading enabled")
         
         # Enable VAE optimizations
         if hasattr(self.pipeline, 'enable_vae_slicing'):
             self.pipeline.enable_vae_slicing()
-            logging.info("✓ VAE slicing enabled")
+            logging.info("VAE slicing enabled")
             
         if hasattr(self.pipeline, 'enable_vae_tiling'):
             self.pipeline.enable_vae_tiling()
-            logging.info("✓ VAE tiling enabled - 80% memory reduction")
+            logging.info("VAE tiling enabled - 80% memory reduction")
     
     def _apply_precision_optimizations(self):
         """Apply FP16/BF16 optimizations."""
@@ -187,7 +187,7 @@ class OptimizedI2VPipeline:
         try:
             if hasattr(self.pipeline, 'to'):
                 self.pipeline = self.pipeline.to(dtype=torch.bfloat16)
-                logging.info("✓ Converted to BFloat16 precision")
+                logging.info("Converted to BFloat16 precision")
         except Exception as e:
             logging.warning(f"Precision conversion failed: {e}")
     
@@ -203,7 +203,7 @@ class OptimizedI2VPipeline:
                     mode="max-autotune",
                     fullgraph=True
                 )
-                logging.info("✓ DiT model compiled with max-autotune")
+                logging.info("DiT model compiled with max-autotune")
         except Exception as e:
             logging.warning(f"Compilation failed: {e}")
     

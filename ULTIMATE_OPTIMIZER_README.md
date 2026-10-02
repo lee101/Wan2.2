@@ -1,8 +1,8 @@
-# 🚀 Ultimate FastVideo Optimizer for WAN2.2
+# Ultimate FastVideo Optimizer for WAN2.2
 
 **Achieve 15-25x faster video generation** with one unified, intelligent optimizer that combines ALL cutting-edge speedup techniques.
 
-## ⚡ Quick Start (2 minutes)
+## Quick Start (2 minutes)
 
 ### 1. Install Everything
 ```bash
@@ -59,7 +59,7 @@ python examples/ultimate_optimizer.py \
     --benchmark
 ```
 
-## 🎯 Quality Presets (Speed vs Quality)
+## Quality Presets (Speed vs Quality)
 
 | Preset | Speedup | Quality | Use Case | Description |
 |--------|---------|---------|----------|-------------|
@@ -70,14 +70,14 @@ python examples/ultimate_optimizer.py \
 | **quality** | **5x** | Excellent | Final output | Quality focus, 35 steps |
 | **maximum** | **3x** | Pristine | Critical content | Maximum quality, 50 steps |
 
-## 🛠️ Complete Optimization Stack
+## Complete Optimization Stack
 
 ### Revolutionary Speedups
-- **🎯 TaylorSeer (5x)**: Predicts future diffusion features using Taylor expansion
-- **⚡ Flash Attention 2 (1.33x)**: Linear memory scaling vs quadratic standard attention
-- **🔥 FP8 Quantization (2.3x)**: Native support on H100/RTX 40/50 series GPUs
-- **🪙 Token Merging (1.4x)**: Smart token reduction with minimal quality loss
-- **🚀 PyTorch Compilation (1.2x)**: Graph optimization for target hardware
+- **TaylorSeer (5x)**: Predicts future diffusion features using Taylor expansion
+- **Flash Attention 2 (1.33x)**: Linear memory scaling vs quadratic standard attention
+- **FP8 Quantization (2.3x)**: Native support on H100/RTX 40/50 series GPUs
+- **Token Merging (1.4x)**: Smart token reduction with minimal quality loss
+- **PyTorch Compilation (1.2x)**: Graph optimization for target hardware
 
 ### Memory Optimizations
 - **CPU Offloading**: Process large models on consumer hardware
@@ -91,7 +91,7 @@ python examples/ultimate_optimizer.py \
 - **Intelligent Fallbacks**: Graceful degradation when optimizations fail
 - **Quality Preservation**: Error bounds to maintain visual quality
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
 
 ### Real-World Performance (RTX 4090)
 | Resolution | Lightning | Fast | Balanced | Baseline | Max Speedup |
@@ -109,7 +109,7 @@ python examples/ultimate_optimizer.py \
 | H100      | 1.6s (25x)     | 2.9s (14x) | 7.1s (6x)   |
 | A100      | 1.9s (23x)     | 3.4s (13x) | 8.3s (5x)   |
 
-## 🎮 Advanced Usage Examples
+## Advanced Usage Examples
 
 ### Text-to-Video with Custom Settings
 ```python
@@ -178,7 +178,7 @@ final_video = optimizer.generate(
 )
 ```
 
-## 🔧 Configuration and Customization
+## Configuration and Customization
 
 ### Hardware-Specific Optimization
 ```python
@@ -231,7 +231,7 @@ export FASTVIDEO_CPU_OFFLOAD="1"
 export FASTVIDEO_VAE_TILING="1"
 ```
 
-## 🧪 Benchmarking and Profiling
+## Benchmarking and Profiling
 
 ### Comprehensive Benchmark
 ```python
@@ -264,7 +264,7 @@ python examples/ultimate_optimizer.py \
     --prompt "Complex scene with multiple objects" "Simple nature scene" "Abstract concept"
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Installation Issues
 ```bash
@@ -272,14 +272,14 @@ python examples/ultimate_optimizer.py \
 python -c "
 import sys
 sys.path.insert(0, '.')
-try: import cache_dit; print('✅ TaylorSeer')
-except: print('❌ TaylorSeer - run: pip install cache-dit')
-try: import flash_attn; print('✅ Flash Attention')
-except: print('❌ Flash Attention - run: pip install flash-attn --no-build-isolation')
-try: import tomesd; print('✅ Token Merging')
-except: print('❌ Token Merging - run: pip install tomesd')
-try: import torchao; print('✅ FP8 Quantization')
-except: print('❌ FP8 Quantization - run: pip install torchao')
+try: import cache_dit; print('TaylorSeer')
+except: print('TaylorSeer - run: pip install cache-dit')
+try: import flash_attn; print('Flash Attention')
+except: print('Flash Attention - run: pip install flash-attn --no-build-isolation')
+try: import tomesd; print('Token Merging')
+except: print('Token Merging - run: pip install tomesd')
+try: import torchao; print('FP8 Quantization')
+except: print('FP8 Quantization - run: pip install torchao')
 "
 
 # Reinstall problematic packages
@@ -347,7 +347,7 @@ optimizer = UltimateFastVideoOptimizer(
 # CPU offloading is automatically enabled
 ```
 
-## 🎯 Best Practices
+## Best Practices
 
 ### Development Workflow
 1. **Start with "draft" quality** for rapid iteration
@@ -367,7 +367,7 @@ optimizer = UltimateFastVideoOptimizer(
 3. **Monitor for quality regression** in batch processing
 4. **Keep baseline comparisons** for quality assessment
 
-## 🔮 What's Next?
+## What's Next?
 
 ### Planned Features
 - **Multi-GPU Support**: Distribute generation across multiple GPUs
@@ -380,7 +380,7 @@ optimizer = UltimateFastVideoOptimizer(
 - **Progressive Distillation**: 50→25→12→6→3→1 step reduction
 - **Neural Architecture Search**: Automatic optimization discovery
 
-## 💡 Pro Tips
+## Pro Tips
 
 1. **Warm up your GPU** with a test generation before important runs
 2. **Use consistent prompts** when comparing different settings
@@ -388,7 +388,7 @@ optimizer = UltimateFastVideoOptimizer(
 4. **Adjust quality presets** based on your specific content requirements
 5. **Combine with video upscaling** (Real-ESRGAN) for maximum quality
 
-## 🎊 Ready to Generate?
+## Ready to Generate?
 
 ```python
 # The ultimate fast generation experience
@@ -408,8 +408,8 @@ video = optimizer.generate(
 # Expected: ~2-3 seconds on RTX 4090 (vs 45+ seconds baseline)
 ```
 
-**Enjoy 15-25x faster video generation with pristine quality! 🚀**
+**Enjoy 15-25x faster video generation with pristine quality! **
 
 ---
 
-*Built with ❤️ for the video generation community. Contributions welcome!*
+*Built with for the video generation community. Contributions welcome!*

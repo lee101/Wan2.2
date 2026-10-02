@@ -127,12 +127,12 @@ class UltraFastWAN:
     def _apply_ultra_optimizations(self):
         """Apply all available optimizations in optimal order."""
         
-        logging.info("🚀 Applying ULTRA optimizations...")
+        logging.info("Applying ULTRA optimizations...")
         speedup_factors = []
         
         # 1. TaylorSeer Acceleration (5x speedup) - HIGHEST IMPACT
         if OPTIMIZATIONS_AVAILABLE['taylorseer']:
-            logging.info("⚡ Enabling TaylorSeer (5x speedup)...")
+            logging.info("Enabling TaylorSeer (5x speedup)...")
             try:
                 config = TaylorSeerConfig(
                     order=3,                    # Optimal order for speed/quality
@@ -144,69 +144,69 @@ class UltraFastWAN:
                 )
                 enable_cache(self.pipeline, config)
                 speedup_factors.append(5.0)
-                logging.info("✅ TaylorSeer enabled")
+                logging.info("TaylorSeer enabled")
             except Exception as e:
-                logging.error(f"❌ TaylorSeer failed: {e}")
+                logging.error(f"TaylorSeer failed: {e}")
         else:
-            logging.warning("⚠️  TaylorSeer not available - install with: pip install cache-dit")
+            logging.warning("TaylorSeer not available - install with: pip install cache-dit")
         
         # 2. Flash Attention 2 (1.33x speedup)
         if OPTIMIZATIONS_AVAILABLE['flash_attn']:
-            logging.info("⚡ Enabling Flash Attention 2...")
+            logging.info("Enabling Flash Attention 2...")
             self._enable_flash_attention()
             speedup_factors.append(1.33)
-            logging.info("✅ Flash Attention enabled")
+            logging.info("Flash Attention enabled")
         else:
-            logging.warning("⚠️  Flash Attention not available - install with: pip install flash-attn")
+            logging.warning("Flash Attention not available - install with: pip install flash-attn")
         
         # 3. FP8 Quantization (2.3x speedup on supported hardware)
         if OPTIMIZATIONS_AVAILABLE['fp8'] and self.supports_fp8:
-            logging.info("⚡ Enabling FP8 quantization...")
+            logging.info("Enabling FP8 quantization...")
             try:
                 self._apply_fp8_quantization()
                 speedup_factors.append(2.3)
-                logging.info("✅ FP8 quantization enabled")
+                logging.info("FP8 quantization enabled")
             except Exception as e:
-                logging.error(f"❌ FP8 quantization failed: {e}")
+                logging.error(f"FP8 quantization failed: {e}")
         elif not self.supports_fp8:
-            logging.info("ℹ️  FP8 not supported on this GPU (requires H100/RTX 40/50 series)")
+            logging.info("ℹ FP8 not supported on this GPU (requires H100/RTX 40/50 series)")
         
         # 4. Token Merging (1.4x speedup)
         if OPTIMIZATIONS_AVAILABLE['tome']:
-            logging.info("⚡ Enabling Token Merging...")
+            logging.info("Enabling Token Merging...")
             try:
                 # Apply optimal 30% token merging
                 tomesd.apply_patch(self.pipeline, ratio=0.3)
                 speedup_factors.append(1.4)
-                logging.info("✅ Token Merging enabled (30% reduction)")
+                logging.info("Token Merging enabled (30% reduction)")
             except Exception as e:
-                logging.error(f"❌ Token Merging failed: {e}")
+                logging.error(f"Token Merging failed: {e}")
         else:
-            logging.warning("⚠️  Token Merging not available - install with: pip install tomesd")
+            logging.warning("Token Merging not available - install with: pip install tomesd")
         
         # 5. Memory Optimizations
         self._apply_memory_optimizations()
         
         # 6. PyTorch Compilation (1.2x speedup)
         if torch.__version__ >= "2.0":
-            logging.info("⚡ Enabling PyTorch 2.0+ compilation...")
+            logging.info("Enabling PyTorch 2.0+ compilation...")
             try:
                 self._apply_compilation()
                 speedup_factors.append(1.2)
-                logging.info("✅ Compilation enabled")
+                logging.info("Compilation enabled")
             except Exception as e:
-                logging.error(f"❌ Compilation failed: {e}")
+                logging.error(f"Compilation failed: {e}")
         
         # Calculate total expected speedup
         total_speedup = np.prod(speedup_factors) if speedup_factors else 1.0
-        logging.info(f"🎯 Total expected speedup: {total_speedup:.1f}x")
+        logging.info(f"Total expected speedup: {total_speedup:.1f}x")
         
         # Reduced sampling steps (2.5x speedup)
         self.default_steps = 20  # vs 50 baseline
-        logging.info("✅ Using 20 sampling steps (vs 50 baseline) for 2.5x additional speedup")
+        logging.info("Using 20 sampling steps (vs 50 baseline) for 2.5x additional speedup")
         
         final_speedup = total_speedup * 2.5
-        logging.info(f"🏆 FINAL EXPECTED SPEEDUP: {final_speedup:.1f}x")
+        logging.info(f"FINAL EXPECTED SPEEDUP: {final_speedup:.1f}x")
     
     def _enable_flash_attention(self):
         """Enable Flash Attention with optimal settings."""
@@ -230,7 +230,7 @@ class UltraFastWAN:
     
     def _apply_memory_optimizations(self):
         """Apply comprehensive memory optimizations."""
-        logging.info("⚡ Applying memory optimizations...")
+        logging.info("Applying memory optimizations...")
         
         optimizations_applied = []
         
@@ -248,7 +248,7 @@ class UltraFastWAN:
             self.pipeline.enable_vae_tiling()
             optimizations_applied.append("VAE tiling")
         
-        logging.info(f"✅ Memory optimizations: {', '.join(optimizations_applied)}")
+        logging.info(f"Memory optimizations: {', '.join(optimizations_applied)}")
     
     def _apply_compilation(self):
         """Apply PyTorch compilation for maximum speed."""
@@ -278,9 +278,9 @@ class UltraFastWAN:
         if settings['sampling_steps'] <= 20:
             settings['guide_scale'] *= 0.9  # Slightly reduce for speed
         
-        logging.info(f"🎬 Generating {self.task} video...")
-        logging.info(f"📝 Prompt: {prompt}")
-        logging.info(f"⚙️  Settings: {settings['sampling_steps']} steps, {settings['size']}, CFG {settings['guide_scale']}")
+        logging.info(f"Generating {self.task} video...")
+        logging.info(f"Prompt: {prompt}")
+        logging.info(f"Settings: {settings['sampling_steps']} steps, {settings['size']}, CFG {settings['guide_scale']}")
         
         start_time = time.time()
         
@@ -336,8 +336,8 @@ class UltraFastWAN:
         generation_time = time.time() - start_time
         fps = settings['frame_num'] / generation_time
         
-        logging.info(f"⏱️  Generation completed in {generation_time:.2f} seconds")
-        logging.info(f"🎯 Performance: {fps:.2f} FPS")
+        logging.info(f"⏱Generation completed in {generation_time:.2f} seconds")
+        logging.info(f"Performance: {fps:.2f} FPS")
         
         return video, generation_time, fps
     
@@ -357,7 +357,7 @@ class UltraFastWAN:
             if task not in WAN_CONFIGS:
                 continue
                 
-            logging.info(f"\n🧪 BENCHMARKING {task.upper()}")
+            logging.info(f"\n BENCHMARKING {task.upper()}")
             logging.info("=" * 50)
             
             # Reinitialize for this task
@@ -401,10 +401,10 @@ class UltraFastWAN:
                     }
                     task_results.append(result)
                     
-                    logging.info(f"✅ Test {i+1}: {gen_time:.2f}s, {fps:.2f} FPS")
+                    logging.info(f"Test {i+1}: {gen_time:.2f}s, {fps:.2f} FPS")
                     
                 except Exception as e:
-                    logging.error(f"❌ Test {i+1} failed: {e}")
+                    logging.error(f"Test {i+1} failed: {e}")
             
             results[task] = task_results
         
@@ -415,9 +415,9 @@ class UltraFastWAN:
     def _print_benchmark_summary(self, results):
         """Print comprehensive benchmark results."""
         
-        logging.info("\n" + "🏆" * 20)
+        logging.info("\n" + "" * 20)
         logging.info("ULTRA-FAST BENCHMARK RESULTS")
-        logging.info("🏆" * 20)
+        logging.info("" * 20)
         
         for task, task_results in results.items():
             if not task_results:
@@ -429,14 +429,14 @@ class UltraFastWAN:
             # Estimate baseline performance (assuming 15x total speedup)
             estimated_baseline_time = avg_time * 15
             
-            logging.info(f"\n📊 {task.upper()}")
-            logging.info(f"  ⏱️  Average time: {avg_time:.2f}s")
-            logging.info(f"  🎯 Average FPS: {avg_fps:.2f}")
-            logging.info(f"  📈 Estimated speedup: 15.0x")
-            logging.info(f"  🐌 Estimated baseline: {estimated_baseline_time:.2f}s")
+            logging.info(f"\n {task.upper()}")
+            logging.info(f"  ⏱Average time: {avg_time:.2f}s")
+            logging.info(f"  Average FPS: {avg_fps:.2f}")
+            logging.info(f"  Estimated speedup: 15.0x")
+            logging.info(f"  Estimated baseline: {estimated_baseline_time:.2f}s")
         
         total_videos = sum(len(results) for results in results.values())
-        logging.info(f"\n✅ Generated {total_videos} test videos successfully")
+        logging.info(f"\n Generated {total_videos} test videos successfully")
 
 
 def main():
@@ -471,14 +471,14 @@ def main():
     )
     
     # Print optimization status
-    logging.info("🔍 OPTIMIZATION STATUS")
+    logging.info("OPTIMIZATION STATUS")
     logging.info("=" * 30)
     for opt, available in OPTIMIZATIONS_AVAILABLE.items():
-        status = "✅ Available" if available else "❌ Missing"
+        status = "Available" if available else "Missing"
         logging.info(f"{opt:12}: {status}")
     
     # Initialize ultra-fast pipeline
-    logging.info(f"\n🚀 Initializing Ultra-Fast {args.task.upper()} pipeline...")
+    logging.info(f"\n Initializing Ultra-Fast {args.task.upper()} pipeline...")
     ultra_wan = UltraFastWAN(
         task=args.task,
         checkpoint_dir=args.checkpoint_dir
@@ -486,7 +486,7 @@ def main():
     
     if args.benchmark:
         # Single task benchmark
-        logging.info("🧪 Running performance benchmark...")
+        logging.info("Running performance benchmark...")
         checkpoints = {args.task: args.checkpoint_dir}
         ultra_wan.benchmark_all_tasks(checkpoints)
     
@@ -523,9 +523,9 @@ def main():
             value_range=(-1, 1)
         )
         
-        logging.info(f"\n🎬 Video saved: {args.output}")
-        logging.info(f"⚡ ULTRA-FAST GENERATION COMPLETE!")
-        logging.info(f"⏱️  Time: {gen_time:.2f}s | 🎯 FPS: {fps:.2f} | 📈 ~15x faster than baseline")
+        logging.info(f"\n Video saved: {args.output}")
+        logging.info(f"ULTRA-FAST GENERATION COMPLETE!")
+        logging.info(f"⏱Time: {gen_time:.2f}s | FPS: {fps:.2f} | ~15x faster than baseline")
 
 
 if __name__ == "__main__":

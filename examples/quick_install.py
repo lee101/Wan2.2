@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 
 def install_package(package_name, description="", optional=False, extra_args=None):
     """Install a package with error handling."""
-    print(f"📦 Installing {description or package_name}...")
+    print(f"Installing {description or package_name}...")
     
     cmd = [sys.executable, "-m", "pip", "install", package_name]
     if extra_args:
@@ -22,21 +22,21 @@ def install_package(package_name, description="", optional=False, extra_args=Non
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
         if result.returncode == 0:
-            print(f"✅ {description or package_name} installed successfully")
+            print(f"{description or package_name} installed successfully")
             return True
         else:
             if optional:
-                print(f"⚠️  Optional package {package_name} failed (continuing)")
+                print(f"Optional package {package_name} failed (continuing)")
                 return False
             else:
-                print(f"❌ Failed to install {package_name}")
+                print(f"Failed to install {package_name}")
                 print(f"Error: {result.stderr}")
                 return False
     except subprocess.TimeoutExpired:
         print(f"⏰ Installation timeout for {package_name}")
         return False
     except Exception as e:
-        print(f"❌ Installation error for {package_name}: {e}")
+        print(f"Installation error for {package_name}: {e}")
         return False
 
 def check_package(package_name):
@@ -50,7 +50,7 @@ def check_package(package_name):
 def main():
     print("""
     ╔══════════════════════════════════════════════════════════════╗
-    ║           🚀 ULTIMATE FASTVIDEO OPTIMIZER INSTALLER 🚀        ║
+    ║           ULTIMATE FASTVIDEO OPTIMIZER INSTALLER ║
     ║                                                              ║
     ║              Installing all speedup dependencies            ║
     ╚══════════════════════════════════════════════════════════════╝
@@ -70,25 +70,25 @@ def main():
         ("easydict", "EasyDict")
     ]
     
-    print("🔧 Installing core dependencies...")
+    print("Installing core dependencies...")
     for package, desc in core_packages:
         if not check_package(package.replace("-", "_")):
             install_package(package, desc)
         else:
-            print(f"✅ {desc} already installed")
+            print(f"{desc} already installed")
     
     # Speedup optimizations
-    print("\n⚡ Installing speedup optimizations...")
+    print("\n Installing speedup optimizations...")
     
     optimizations = []
     
     # 1. TaylorSeer (5x speedup) - HIGHEST PRIORITY
-    print("\n🎯 Installing TaylorSeer (5x speedup)...")
+    print("\n Installing TaylorSeer (5x speedup)...")
     if install_package("cache-dit", "TaylorSeer acceleration"):
         optimizations.append("TaylorSeer (5x speedup)")
     
     # 2. Flash Attention 2 (1.33x speedup)
-    print("\n⚡ Installing Flash Attention 2...")
+    print("\n Installing Flash Attention 2...")
     flash_installed = False
     
     # Try different installation methods
@@ -101,22 +101,22 @@ def main():
     
     # 3. xFormers (fallback for Flash Attention)
     if not flash_installed:
-        print("\n🔧 Installing xFormers (Flash Attention alternative)...")
+        print("\n Installing xFormers (Flash Attention alternative)...")
         if install_package("xformers", "xFormers", optional=True):
             optimizations.append("xFormers (memory optimization)")
     
     # 4. Token Merging (1.4x speedup)
-    print("\n🪙 Installing Token Merging...")
+    print("\n Installing Token Merging...")
     if install_package("tomesd", "Token Merging", optional=True):
         optimizations.append("Token Merging (1.4x speedup)")
     
     # 5. FP8 Quantization (2.3x speedup)
-    print("\n🔥 Installing FP8 quantization...")
+    print("\n Installing FP8 quantization...")
     if install_package("torchao", "TorchAO FP8 quantization", optional=True):
         optimizations.append("FP8 Quantization (2.3x speedup)")
     
     # Additional performance packages
-    print("\n🚀 Installing additional performance packages...")
+    print("\n Installing additional performance packages...")
     
     perf_packages = [
         ("psutil", "System monitoring", True),
@@ -131,7 +131,7 @@ def main():
             optimizations.append(desc)
     
     # Verification
-    print("\n🔍 Verifying installation...")
+    print("\n Verifying installation...")
     
     verification_results = {}
     
@@ -153,37 +153,37 @@ def main():
                 importlib.import_module(module)
             else:
                 importlib.import_module(module)
-            verification_results[name] = "✅"
+            verification_results[name] = ""
         except ImportError:
-            verification_results[name] = "❌"
+            verification_results[name] = ""
     
-    print("\n📋 Installation Status:")
+    print("\n Installation Status:")
     print("-" * 40)
     for name, status in verification_results.items():
         print(f"{name:<20}: {status}")
     
     # Summary
-    available_count = sum(1 for status in verification_results.values() if status == "✅")
+    available_count = sum(1 for status in verification_results.values() if status == "")
     total_count = len(verification_results)
     
-    print(f"\n🎯 {available_count}/{total_count} components available")
+    print(f"\n {available_count}/{total_count} components available")
     
     if available_count >= 5:
-        print("🚀 Ready for ULTRA-FAST generation!")
+        print("Ready for ULTRA-FAST generation!")
         expected_speedup = "15-25x"
     elif available_count >= 3:
-        print("⚡ Ready for fast generation!")
+        print("Ready for fast generation!")
         expected_speedup = "8-15x"
     else:
-        print("⚠️  Basic setup complete, consider installing more optimizations")
+        print("Basic setup complete, consider installing more optimizations")
         expected_speedup = "3-8x"
     
-    print(f"\n🏆 Expected speedup: {expected_speedup}")
+    print(f"\n Expected speedup: {expected_speedup}")
     
     # Usage examples
     print(f"""
     
-🎮 READY TO USE! Try these examples:
+READY TO USE! Try these examples:
 
 # Quick generation with balanced quality
 python examples/ultimate_optimizer.py \\
@@ -212,7 +212,7 @@ python examples/ultimate_optimizer.py \\
     --checkpoint_dir /path/to/checkpoints \\
     --benchmark
 
-🎊 Installation complete! Enjoy ultra-fast video generation!
+Installation complete! Enjoy ultra-fast video generation!
     """)
 
 if __name__ == "__main__":

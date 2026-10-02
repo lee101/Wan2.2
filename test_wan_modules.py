@@ -329,9 +329,9 @@ if __name__ == "__main__":
     
     print("\n" + "=" * 70)
     if result.wasSuccessful():
-        print("✅ All tests passed!")
+        print("All tests passed!")
     else:
-        print(f"❌ {len(result.failures)} test(s) failed, {len(result.errors)} error(s)")
+        print(f"{len(result.failures)} test(s) failed, {len(result.errors)} error(s)")
         
         if result.failures:
             print("\nFailures:")

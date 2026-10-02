@@ -127,7 +127,7 @@ for package in "${required_packages[@]}"; do
     if ! python -c "import $package" 2>/dev/null; then
         log_warning "Package $package not available - some tests may be skipped"
     else
-        log_info "✓ $package available"
+        log_info "$package available"
     fi
 done
 
@@ -165,12 +165,12 @@ with open(os.path.join(model_dir, 'config.json'), 'w') as f:
     f.write('{\"model\": \"ti2v-5b\"}')
 try:
     generator = TI2V5BGenerator(model_dir)
-    print('✓ Generator initialization successful')
+    print('Generator initialization successful')
     memory_info = generator.get_memory_usage()
-    print(f'✓ Memory tracking working: {len(memory_info)} metrics')
-    print('✓ Example script functionality test passed')
+    print(f'Memory tracking working: {len(memory_info)} metrics')
+    print('Example script functionality test passed')
 except Exception as e:
-    print(f'✗ Error: {e}')
+    print(f'Error: {e}')
     sys.exit(1)
 finally:
     import shutil
@@ -215,9 +215,9 @@ try:
     assert generator.config['t5_cpu'] == True, 'T5 CPU usage should be enabled'
     assert generator.config['size'] == '1280*704', 'Resolution should be optimized for TI2V-5B'
     
-    print('✓ All performance optimizations correctly configured')
+    print('All performance optimizations correctly configured')
 except Exception as e:
-    print(f'✗ Performance configuration error: {e}')
+    print(f'Performance configuration error: {e}')
     sys.exit(1)
 finally:
     import shutil
@@ -267,9 +267,9 @@ with patch('subprocess.run') as mock_run:
                 output_path=output_file,
                 seed=42
             )
-            print('✓ Text-to-video integration test passed')
+            print('Text-to-video integration test passed')
         except Exception as e:
-            print(f'✗ Text-to-video integration test failed: {e}')
+            print(f'Text-to-video integration test failed: {e}')
             sys.exit(1)
 "; then
         log_success "Text-to-video integration test passed"
@@ -303,9 +303,9 @@ with patch('subprocess.run') as mock_run:
                 output_path=output_file,
                 seed=123
             )
-            print('✓ Image-to-video integration test passed')
+            print('Image-to-video integration test passed')
         except Exception as e:
-            print(f'✗ Image-to-video integration test failed: {e}')
+            print(f'Image-to-video integration test failed: {e}')
             sys.exit(1)
 "; then
         log_success "Image-to-video integration test passed"
@@ -328,7 +328,7 @@ if [ -d "$MODEL_PATH" ]; then
     required_files=("config.json")
     for file in "${required_files[@]}"; do
         if [ -f "$MODEL_PATH/$file" ]; then
-            log_info "✓ Found $file"
+            log_info "Found $file"
         else
             log_warning "Missing $file in model directory"
         fi
@@ -342,16 +342,16 @@ fi
 # Summary
 log_success "All TI2V-5B integration tests completed successfully!"
 log_info "Test summary:"
-log_info "  ✓ Python environment check"
-log_info "  ✓ Unit tests"
-log_info "  ✓ Example script functionality"
-log_info "  ✓ CLI argument parsing"
-log_info "  ✓ Performance configuration"
+log_info "  Python environment check"
+log_info "  Unit tests"
+log_info "  Example script functionality"
+log_info "  CLI argument parsing"
+log_info "  Performance configuration"
 if [ "$QUICK_MODE" = false ]; then
-    log_info "  ✓ Integration tests"
+    log_info "  Integration tests"
 fi
 if [ -d "$MODEL_PATH" ]; then
-    log_info "  ✓ Model directory validation"
+    log_info "  Model directory validation"
 fi
 
 log_success "Ready for deployment on GPU-A6000!"

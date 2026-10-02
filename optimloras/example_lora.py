@@ -27,17 +27,17 @@ def main():
         "A peaceful Japanese garden with cherry blossoms in spring",
     ]
     
-    print("🚀 Ultimate FastVideo LoRA Optimizer Example")
+    print("Ultimate FastVideo LoRA Optimizer Example")
     print("=" * 50)
     
     # Check if model path exists
     if not os.path.exists(MODEL_PATH):
-        print(f"❌ Model path not found: {MODEL_PATH}")
+        print(f"Model path not found: {MODEL_PATH}")
         print("Please update MODEL_PATH to point to your WAN2.2-Fun model")
         return
     
     # Initialize optimizer
-    print("🔄 Initializing optimizer...")
+    print("Initializing optimizer...")
     
     optimizer = UltimateFastVideoLoRAOptimizer(
         model_path=MODEL_PATH,
@@ -49,7 +49,7 @@ def main():
     )
     
     # Example 1: Single video generation with balanced quality
-    print("\n📹 Example 1: Single video generation")
+    print("\n Example 1: Single video generation")
     try:
         video = optimizer.generate(
             prompt=prompts[0],
@@ -61,13 +61,13 @@ def main():
             save_videos=True,
             output_dir="example_outputs"
         )
-        print("✅ Single video generated successfully!")
+        print("Single video generated successfully!")
         
     except Exception as e:
-        print(f"❌ Single video generation failed: {e}")
+        print(f"Single video generation failed: {e}")
     
     # Example 2: Fast batch generation
-    print("\n📹 Example 2: Batch generation with fast quality")
+    print("\n Example 2: Batch generation with fast quality")
     try:
         videos = optimizer.generate(
             prompt=prompts,  # Multiple prompts
@@ -79,13 +79,13 @@ def main():
             save_videos=True,
             output_dir="example_batch_outputs"
         )
-        print(f"✅ Batch generation completed! Generated {len(videos)} videos")
+        print(f"Batch generation completed! Generated {len(videos)} videos")
         
     except Exception as e:
-        print(f"❌ Batch generation failed: {e}")
+        print(f"Batch generation failed: {e}")
     
     # Example 3: Lightning speed demo
-    print("\n⚡ Example 3: Lightning speed demo")
+    print("\n Example 3: Lightning speed demo")
     try:
         video = optimizer.generate(
             prompt="A quick demo of lightning-fast generation",
@@ -97,13 +97,13 @@ def main():
             save_videos=True,
             output_dir="lightning_demo"
         )
-        print("⚡ Lightning demo completed!")
+        print("Lightning demo completed!")
         
     except Exception as e:
-        print(f"❌ Lightning demo failed: {e}")
+        print(f"Lightning demo failed: {e}")
     
     # Example 4: Custom settings
-    print("\n🛠️ Example 4: Custom settings")
+    print("\n Example 4: Custom settings")
     try:
         custom_settings = {
             'steps': 20,
@@ -124,19 +124,19 @@ def main():
             save_videos=True,
             output_dir="custom_outputs"
         )
-        print("🛠️ Custom settings example completed!")
+        print("Custom settings example completed!")
         
     except Exception as e:
-        print(f"❌ Custom settings example failed: {e}")
+        print(f"Custom settings example failed: {e}")
     
-    print("\n🎉 All examples completed!")
+    print("\n All examples completed!")
     print("\nGenerated videos can be found in:")
     print("  - example_outputs/")
     print("  - example_batch_outputs/")
     print("  - lightning_demo/")
     print("  - custom_outputs/")
     
-    print("\n💡 Tips for best results:")
+    print("\n Tips for best results:")
     print("  - Use 'balanced' or 'fast' quality for daily use")
     print("  - Try 'lightning' for quick previews")
     print("  - Use 'quality' or 'maximum' for final outputs")

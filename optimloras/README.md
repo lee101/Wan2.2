@@ -4,13 +4,13 @@ This directory contains the **Ultimate FastVideo LoRA Optimizer** - a powerful c
 
 ## Features
 
-- 🚀 **15-25x speedup** with intelligent quality presets
-- 🎨 **LoRA support** for fine-tuned models (both low and high noise transformers)
-- ⚡ **All optimizations**: TaylorSeer, Flash Attention, Token Merging, FP8 quantization
-- 💾 **Smart memory management** based on available VRAM
-- 🎯 **Quality presets** from lightning-fast draft to maximum quality
-- 📊 **Batch processing** support
-- 🔄 **VideoX-Fun compatibility** with WAN2.2-Fun models
+- **15-25x speedup** with intelligent quality presets
+- **LoRA support** for fine-tuned models (both low and high noise transformers)
+- **All optimizations**: TaylorSeer, Flash Attention, Token Merging, FP8 quantization
+- **Smart memory management** based on available VRAM
+- **Quality presets** from lightning-fast draft to maximum quality
+- **Batch processing** support
+- **VideoX-Fun compatibility** with WAN2.2-Fun models
 
 ## Files
 
@@ -89,10 +89,16 @@ video = optimizer.generate(
 
 ## Requirements
 
-- VideoX-Fun repository in `/vfast/data/code/VideoX-Fun`
-- WAN2.2-Fun model weights
+- A VideoX-Fun checkout (provides the `videox_fun` package). By default the
+  scripts look for `VideoX-Fun/` next to this repository; point `VIDEOX_FUN_DIR`
+  at it if it lives elsewhere.
+- WAN2.2-Fun model weights. By default the scripts look for `Wan2.2-I2V-A14B/`
+  next to this repository; set `WAN_MODEL_DIR` to override.
 - Optional LoRA models (.safetensors or .pth format)
 - CUDA-capable GPU (8GB+ VRAM recommended)
+
+`optimloras/paths.py` resolves all of the above, so the scripts need no edits
+for a different layout. `VIDEOX_FUN_CONFIG` overrides the pipeline YAML path.
 
 ## Memory Usage by Quality
 

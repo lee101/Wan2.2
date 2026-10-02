@@ -193,7 +193,7 @@ class UltimateFastVideoOptimizer:
         """Print the Ultimate FastVideo banner."""
         banner = """
         ╔══════════════════════════════════════════════════════════════╗
-        ║                🚀 ULTIMATE FASTVIDEO OPTIMIZER 🚀             ║
+        ║                ULTIMATE FASTVIDEO OPTIMIZER ║
         ║                                                              ║
         ║           Combining ALL speedup techniques for               ║
         ║              15-25x faster video generation                  ║
@@ -205,20 +205,20 @@ class UltimateFastVideoOptimizer:
         """Print hardware detection results."""
         if torch.cuda.is_available():
             gpu_name = torch.cuda.get_device_name()
-            logging.info(f"🔍 Detected GPU: {gpu_name} (Capability: {self.gpu_capability})")
-            logging.info(f"💾 VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f}GB")
-            logging.info(f"✨ FP8 Support: {'✅' if self.supports_fp8 else '❌'}")
-            logging.info(f"✨ BF16 Support: {'✅' if self.supports_bf16 else '❌'}")
+            logging.info(f"Detected GPU: {gpu_name} (Capability: {self.gpu_capability})")
+            logging.info(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f}GB")
+            logging.info(f"FP8 Support: {'' if self.supports_fp8 else ''}")
+            logging.info(f"BF16 Support: {'' if self.supports_bf16 else ''}")
         else:
-            logging.warning("⚠️  No CUDA GPU detected")
+            logging.warning("No CUDA GPU detected")
     
     def _print_optimization_status(self):
         """Print status of all optimizations."""
-        logging.info("\n🔧 OPTIMIZATION STATUS:")
+        logging.info("\n OPTIMIZATION STATUS:")
         logging.info("=" * 40)
         
         for opt, available in OPTIMIZATIONS_STATUS.items():
-            status = "✅ Available" if available else "❌ Missing"
+            status = "Available" if available else "Missing"
             speedup = {
                 'taylorseer': '5.0x',
                 'flash_attn': '1.33x', 
@@ -231,7 +231,7 @@ class UltimateFastVideoOptimizer:
         
         available_count = sum(OPTIMIZATIONS_STATUS.values())
         total_count = len(OPTIMIZATIONS_STATUS)
-        logging.info(f"\n🎯 {available_count}/{total_count} optimizations available")
+        logging.info(f"\n {available_count}/{total_count} optimizations available")
     
     def initialize_pipeline(self, enable_optimizations=True):
         """Initialize the WAN pipeline with optimal settings."""
@@ -239,18 +239,18 @@ class UltimateFastVideoOptimizer:
             raise ValueError("checkpoint_dir must be provided")
         
         if self.verbose:
-            logging.info(f"🚀 Initializing {self.task} pipeline...")
+            logging.info(f"Initializing {self.task} pipeline...")
             self._print_optimization_status()
         
         # Choose optimal precision
         if self.supports_bf16:
             dtype = torch.bfloat16
             if self.verbose:
-                logging.info("📊 Using BFloat16 precision for stability")
+                logging.info("Using BFloat16 precision for stability")
         else:
             dtype = torch.float16
             if self.verbose:
-                logging.info("📊 Using Float16 precision for speed")
+                logging.info("Using Float16 precision for speed")
         
         # Get configuration
         self.config = WAN_CONFIGS[self.task]
@@ -281,18 +281,18 @@ class UltimateFastVideoOptimizer:
             self.pipeline = self.pipeline.to(dtype=dtype)
         except Exception as e:
             if self.verbose:
-                logging.warning(f"⚠️  Precision conversion failed: {e}")
+                logging.warning(f"Precision conversion failed: {e}")
         
         if enable_optimizations:
             self._apply_all_optimizations()
         
         if self.verbose:
-            logging.info("✅ Pipeline initialized successfully")
+            logging.info("Pipeline initialized successfully")
     
     def _apply_all_optimizations(self):
         """Apply all available optimizations."""
         if self.verbose:
-            logging.info("\n⚡ APPLYING OPTIMIZATIONS:")
+            logging.info("\n APPLYING OPTIMIZATIONS:")
             logging.info("=" * 40)
         
         self.optimizations_applied = []
@@ -317,7 +317,7 @@ class UltimateFastVideoOptimizer:
             self.optimizations_applied.append("Token Merging (1.4x)")
         
         if self.verbose:
-            logging.info(f"✅ Applied {len(self.optimizations_applied)} optimizations")
+            logging.info(f"Applied {len(self.optimizations_applied)} optimizations")
             for opt in self.optimizations_applied:
                 logging.info(f"  • {opt}")
     
@@ -338,7 +338,7 @@ class UltimateFastVideoOptimizer:
             optimizations.append("VAE tiling")
         
         if self.verbose and optimizations:
-            logging.info(f"💾 Memory optimizations: {', '.join(optimizations)}")
+            logging.info(f"Memory optimizations: {', '.join(optimizations)}")
     
     def _enable_flash_attention(self):
         """Enable Flash Attention 2."""
@@ -355,7 +355,7 @@ class UltimateFastVideoOptimizer:
                     pass
         
         if self.verbose:
-            logging.info("⚡ Flash Attention 2 enabled")
+            logging.info("Flash Attention 2 enabled")
     
     def _enable_xformers(self):
         """Enable xFormers as fallback."""
@@ -366,10 +366,10 @@ class UltimateFastVideoOptimizer:
                     module.set_use_memory_efficient_attention_xformers(True)
             
             if self.verbose:
-                logging.info("⚡ xFormers enabled")
+                logging.info("xFormers enabled")
         except Exception as e:
             if self.verbose:
-                logging.warning(f"⚠️  xFormers failed: {e}")
+                logging.warning(f"xFormers failed: {e}")
     
     def _apply_quality_optimizations(self, quality_preset: str):
         """Apply quality-specific optimizations."""
@@ -389,20 +389,20 @@ class UltimateFastVideoOptimizer:
                 enable_cache(self.pipeline, config)
                 
                 if self.verbose:
-                    logging.info(f"⚡ TaylorSeer enabled (order={preset['taylorseer_order']}, threshold={preset['taylorseer_threshold']})")
+                    logging.info(f"TaylorSeer enabled (order={preset['taylorseer_order']}, threshold={preset['taylorseer_threshold']})")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  TaylorSeer failed: {e}")
+                    logging.warning(f"TaylorSeer failed: {e}")
         
         # Apply Token Merging if available
         if OPTIMIZATIONS_STATUS['tome'] and preset['token_merge_ratio'] > 0:
             try:
                 tomesd.apply_patch(self.pipeline, ratio=preset['token_merge_ratio'])
                 if self.verbose:
-                    logging.info(f"⚡ Token Merging enabled (ratio={preset['token_merge_ratio']})")
+                    logging.info(f"Token Merging enabled (ratio={preset['token_merge_ratio']})")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  Token Merging failed: {e}")
+                    logging.warning(f"Token Merging failed: {e}")
         
         # Apply FP8 quantization if supported and enabled
         if (OPTIMIZATIONS_STATUS['fp8'] and self.supports_fp8 and 
@@ -411,10 +411,10 @@ class UltimateFastVideoOptimizer:
                 if hasattr(self.pipeline, 'dit'):
                     quantize_(self.pipeline.dit, float8_weight_only())
                     if self.verbose:
-                        logging.info("⚡ FP8 quantization enabled")
+                        logging.info("FP8 quantization enabled")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  FP8 quantization failed: {e}")
+                    logging.warning(f"FP8 quantization failed: {e}")
         
         # Apply compilation if enabled
         if preset['enable_compilation'] and torch.__version__ >= "2.0":
@@ -426,10 +426,10 @@ class UltimateFastVideoOptimizer:
                         fullgraph=True
                     )
                     if self.verbose:
-                        logging.info("⚡ PyTorch compilation enabled")
+                        logging.info("PyTorch compilation enabled")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  Compilation failed: {e}")
+                    logging.warning(f"Compilation failed: {e}")
     
     def generate(self, prompt: Union[str, List[str]], quality: str = "balanced",
                  image: Optional[Union[str, Image.Image]] = None,
@@ -462,8 +462,8 @@ class UltimateFastVideoOptimizer:
         
         if self.verbose:
             preset_desc = self.QUALITY_PRESETS[quality]['description']
-            logging.info(f"\n🎬 GENERATING {len(prompts)} VIDEO{'S' if len(prompts) > 1 else ''}")
-            logging.info(f"📝 Quality: {quality} ({preset_desc})")
+            logging.info(f"\n GENERATING {len(prompts)} VIDEO{'S' if len(prompts) > 1 else ''}")
+            logging.info(f"Quality: {quality} ({preset_desc})")
             logging.info("=" * 60)
         
         # Apply quality-specific optimizations
@@ -491,7 +491,7 @@ class UltimateFastVideoOptimizer:
         
         for i, current_prompt in enumerate(prompts):
             if self.verbose and len(prompts) > 1:
-                logging.info(f"🎯 Generating video {i+1}/{len(prompts)}: {current_prompt[:50]}...")
+                logging.info(f"Generating video {i+1}/{len(prompts)}: {current_prompt[:50]}...")
             
             start_time = time.time()
             
@@ -513,7 +513,7 @@ class UltimateFastVideoOptimizer:
             fps = gen_params['frame_num'] / generation_time
             
             if self.verbose:
-                logging.info(f"⏱️  Generated in {generation_time:.2f}s ({fps:.2f} FPS)")
+                logging.info(f"⏱Generated in {generation_time:.2f}s ({fps:.2f} FPS)")
             
             generated_videos.append(video)
             
@@ -539,7 +539,7 @@ class UltimateFastVideoOptimizer:
                 )
                 
                 if self.verbose:
-                    logging.info(f"💾 Saved: {output_path}")
+                    logging.info(f"Saved: {output_path}")
         
         # Print summary
         if self.verbose:
@@ -547,10 +547,10 @@ class UltimateFastVideoOptimizer:
             avg_fps = gen_params['frame_num'] / avg_time
             estimated_baseline = avg_time * 15  # Assume 15x speedup
             
-            logging.info(f"\n🏆 GENERATION COMPLETE!")
-            logging.info(f"📊 Average time: {avg_time:.2f}s")
-            logging.info(f"🎯 Average FPS: {avg_fps:.2f}")
-            logging.info(f"⚡ Estimated speedup: ~15x (baseline: {estimated_baseline:.2f}s)")
+            logging.info(f"\n GENERATION COMPLETE!")
+            logging.info(f"Average time: {avg_time:.2f}s")
+            logging.info(f"Average FPS: {avg_fps:.2f}")
+            logging.info(f"Estimated speedup: ~15x (baseline: {estimated_baseline:.2f}s)")
         
         return generated_videos if is_batch else generated_videos[0]
     
@@ -609,7 +609,7 @@ class UltimateFastVideoOptimizer:
             quality_levels = ['lightning', 'fast', 'balanced', 'quality']
         
         if self.verbose:
-            logging.info(f"\n🧪 RUNNING BENCHMARK ({num_tests} tests per quality level)")
+            logging.info(f"\n RUNNING BENCHMARK ({num_tests} tests per quality level)")
             logging.info("=" * 60)
         
         test_prompts = [
@@ -622,7 +622,7 @@ class UltimateFastVideoOptimizer:
         
         for quality in quality_levels:
             if self.verbose:
-                logging.info(f"\n📊 Testing {quality} quality...")
+                logging.info(f"\n Testing {quality} quality...")
             
             times = []
             for i, prompt in enumerate(test_prompts):
@@ -666,7 +666,7 @@ class UltimateFastVideoOptimizer:
     
     def _print_benchmark_results(self, results: Dict):
         """Print formatted benchmark results."""
-        logging.info(f"\n🏆 BENCHMARK RESULTS")
+        logging.info(f"\n BENCHMARK RESULTS")
         logging.info("=" * 60)
         logging.info(f"{'Quality':<12} {'Avg Time':<10} {'FPS':<8} {'Speedup':<8}")
         logging.info("-" * 60)
@@ -685,7 +685,7 @@ class UltimateFastVideoOptimizer:
         fastest_time = results[fastest_quality]['avg_time']
         max_speedup = baseline_time / fastest_time
         
-        logging.info(f"🚀 Fastest: {fastest_quality} ({fastest_time:.2f}s, {max_speedup:.1f}x speedup)")
+        logging.info(f"Fastest: {fastest_quality} ({fastest_time:.2f}s, {max_speedup:.1f}x speedup)")
 
 
 def main():
@@ -738,7 +738,7 @@ def main():
         )
         
         if not args.no_save:
-            print(f"\n🎉 Generation complete! Videos saved to {args.output_dir}/")
+            print(f"\n Generation complete! Videos saved to {args.output_dir}/")
 
 
 if __name__ == "__main__":

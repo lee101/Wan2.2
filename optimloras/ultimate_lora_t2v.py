@@ -30,9 +30,10 @@ os.environ["FASTVIDEO_ENABLE_TILING"] = "1"
 
 # Add VideoX-Fun to path
 current_file_path = os.path.abspath(__file__)
-videox_fun_path = "/vfast/data/code/VideoX-Fun"
-if videox_fun_path not in sys.path:
-    sys.path.insert(0, videox_fun_path)
+sys.path.insert(0, os.path.dirname(current_file_path))
+from paths import DEFAULT_CONFIG_PATH, add_videox_fun_to_path
+
+add_videox_fun_to_path()
 
 # VideoX-Fun imports
 from videox_fun.dist import set_multi_gpus_devices, shard_model
@@ -182,7 +183,7 @@ class UltimateFastVideoLoRAOptimizer:
             verbose: Enable detailed logging
         """
         self.model_path = model_path
-        self.config_path = config_path or "/vfast/data/code/VideoX-Fun/config/wan2.2/wan_civitai_i2v.yaml"
+        self.config_path = config_path or str(DEFAULT_CONFIG_PATH)
         self.device = device
         self.lora_path = lora_path
         self.lora_high_path = lora_high_path
@@ -202,9 +203,9 @@ class UltimateFastVideoLoRAOptimizer:
         if verbose:
             self._print_hardware_info()
             if lora_path:
-                logging.info(f"🎨 LoRA Model (Low Noise): {lora_path} (weight: {lora_weight})")
+                logging.info(f"LoRA Model (Low Noise): {lora_path} (weight: {lora_weight})")
             if lora_high_path:
-                logging.info(f"🎨 LoRA Model (High Noise): {lora_high_path} (weight: {lora_high_weight})")
+                logging.info(f"LoRA Model (High Noise): {lora_high_path} (weight: {lora_high_weight})")
         
         # Initialize pipeline components
         self.pipeline = None
@@ -228,7 +229,7 @@ class UltimateFastVideoLoRAOptimizer:
         """Print the Ultimate FastVideo LoRA banner."""
         banner = """
         ╔══════════════════════════════════════════════════════════════╗
-        ║            🚀 ULTIMATE FASTVIDEO LORA OPTIMIZER 🚀           ║
+        ║            ULTIMATE FASTVIDEO LORA OPTIMIZER ║
         ║                                                              ║
         ║        Combining VideoX-Fun LoRA with ALL speedup           ║
         ║            techniques for 15-25x faster generation          ║
@@ -240,20 +241,20 @@ class UltimateFastVideoLoRAOptimizer:
         """Print hardware detection results."""
         if torch.cuda.is_available():
             gpu_name = torch.cuda.get_device_name()
-            logging.info(f"🔍 Detected GPU: {gpu_name} (Capability: {self.gpu_capability})")
-            logging.info(f"💾 VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f}GB")
-            logging.info(f"✨ FP8 Support: {'✅' if self.supports_fp8 else '❌'}")
-            logging.info(f"✨ BF16 Support: {'✅' if self.supports_bf16 else '❌'}")
+            logging.info(f"Detected GPU: {gpu_name} (Capability: {self.gpu_capability})")
+            logging.info(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f}GB")
+            logging.info(f"FP8 Support: {'' if self.supports_fp8 else ''}")
+            logging.info(f"BF16 Support: {'' if self.supports_bf16 else ''}")
         else:
-            logging.warning("⚠️  No CUDA GPU detected")
+            logging.warning("No CUDA GPU detected")
     
     def _print_optimization_status(self):
         """Print status of all optimizations."""
-        logging.info("\n🔧 OPTIMIZATION STATUS:")
+        logging.info("\n OPTIMIZATION STATUS:")
         logging.info("=" * 40)
         
         for opt, available in OPTIMIZATIONS_STATUS.items():
-            status = "✅ Available" if available else "❌ Missing"
+            status = "Available" if available else "Missing"
             speedup = {
                 'taylorseer': '5.0x',
                 'flash_attn': '1.33x', 
@@ -266,12 +267,12 @@ class UltimateFastVideoLoRAOptimizer:
         
         available_count = sum(OPTIMIZATIONS_STATUS.values())
         total_count = len(OPTIMIZATIONS_STATUS)
-        logging.info(f"\n🎯 {available_count}/{total_count} optimizations available")
+        logging.info(f"\n {available_count}/{total_count} optimizations available")
     
     def initialize_pipeline(self, enable_optimizations=True):
         """Initialize the VideoX-Fun WAN2.2 pipeline with LoRA support."""
         if self.verbose:
-            logging.info(f"🚀 Initializing WAN2.2-Fun pipeline with LoRA support...")
+            logging.info(f"Initializing WAN2.2-Fun pipeline with LoRA support...")
             self._print_optimization_status()
         
         # Set multi-GPU device
@@ -285,15 +286,15 @@ class UltimateFastVideoLoRAOptimizer:
         if self.supports_bf16:
             weight_dtype = torch.bfloat16
             if self.verbose:
-                logging.info("📊 Using BFloat16 precision for stability")
+                logging.info("Using BFloat16 precision for stability")
         else:
             weight_dtype = torch.float16
             if self.verbose:
-                logging.info("📊 Using Float16 precision for speed")
+                logging.info("Using Float16 precision for speed")
         
         # Initialize transformers
         if self.verbose:
-            logging.info("🔄 Loading transformer models...")
+            logging.info("Loading transformer models...")
         
         transformer = Wan2_2Transformer3DModel.from_pretrained(
             os.path.join(self.model_path, config['transformer_additional_kwargs'].get('transformer_low_noise_model_subpath', 'transformer')),
@@ -311,7 +312,7 @@ class UltimateFastVideoLoRAOptimizer:
         
         # Initialize VAE
         if self.verbose:
-            logging.info("🔄 Loading VAE...")
+            logging.info("Loading VAE...")
         
         Chosen_AutoencoderKL = {
             "AutoencoderKLWan": AutoencoderKLWan,
@@ -325,7 +326,7 @@ class UltimateFastVideoLoRAOptimizer:
         
         # Initialize tokenizer and text encoder
         if self.verbose:
-            logging.info("🔄 Loading text encoder...")
+            logging.info("Loading text encoder...")
         
         tokenizer = AutoTokenizer.from_pretrained(
             os.path.join(self.model_path, config['text_encoder_kwargs'].get('tokenizer_subpath', 'tokenizer')),
@@ -369,7 +370,7 @@ class UltimateFastVideoLoRAOptimizer:
             self._load_lora()
         
         if self.verbose:
-            logging.info("✅ Pipeline initialized successfully")
+            logging.info("Pipeline initialized successfully")
     
     def _apply_memory_optimizations(self):
         """Apply memory optimizations based on VRAM availability."""
@@ -377,7 +378,7 @@ class UltimateFastVideoLoRAOptimizer:
         
         if vram_gb < 12:  # Low VRAM
             if self.verbose:
-                logging.info("💾 Applying sequential CPU offload (Low VRAM)")
+                logging.info("Applying sequential CPU offload (Low VRAM)")
             replace_parameters_by_name(self.pipeline.transformer, ["modulation",], device=self.device)
             replace_parameters_by_name(self.pipeline.transformer_2, ["modulation",], device=self.device)
             self.pipeline.transformer.freqs = self.pipeline.transformer.freqs.to(device=self.device)
@@ -385,17 +386,17 @@ class UltimateFastVideoLoRAOptimizer:
             self.pipeline.enable_sequential_cpu_offload(device=self.device)
         elif vram_gb < 20:  # Medium VRAM
             if self.verbose:
-                logging.info("💾 Applying model CPU offload (Medium VRAM)")
+                logging.info("Applying model CPU offload (Medium VRAM)")
             self.pipeline.enable_model_cpu_offload(device=self.device)
         else:  # High VRAM
             if self.verbose:
-                logging.info("💾 Loading full model to GPU (High VRAM)")
+                logging.info("Loading full model to GPU (High VRAM)")
             self.pipeline.to(device=self.device)
     
     def _apply_all_optimizations(self):
         """Apply all available optimizations."""
         if self.verbose:
-            logging.info("\n⚡ APPLYING OPTIMIZATIONS:")
+            logging.info("\n APPLYING OPTIMIZATIONS:")
             logging.info("=" * 40)
         
         self.optimizations_applied = []
@@ -417,7 +418,7 @@ class UltimateFastVideoLoRAOptimizer:
             self.optimizations_applied.append("Token Merging (1.4x)")
         
         if self.verbose:
-            logging.info(f"✅ Applied {len(self.optimizations_applied)} optimizations")
+            logging.info(f"Applied {len(self.optimizations_applied)} optimizations")
             for opt in self.optimizations_applied:
                 logging.info(f"  • {opt}")
     
@@ -428,7 +429,7 @@ class UltimateFastVideoLoRAOptimizer:
         torch.backends.cuda.enable_mem_efficient_sdp(False)
         
         if self.verbose:
-            logging.info("⚡ Flash Attention 2 enabled")
+            logging.info("Flash Attention 2 enabled")
     
     def _enable_xformers(self):
         """Enable xFormers as fallback."""
@@ -439,31 +440,31 @@ class UltimateFastVideoLoRAOptimizer:
                     module.set_use_memory_efficient_attention_xformers(True)
             
             if self.verbose:
-                logging.info("⚡ xFormers enabled")
+                logging.info("xFormers enabled")
         except Exception as e:
             if self.verbose:
-                logging.warning(f"⚠️  xFormers failed: {e}")
+                logging.warning(f"xFormers failed: {e}")
     
     def _load_lora(self):
         """Load LoRA models into the pipeline."""
         if self.verbose:
-            logging.info("🎨 Loading LoRA models...")
+            logging.info("Loading LoRA models...")
         
         try:
             if self.lora_path:
                 self.pipeline = merge_lora(self.pipeline, self.lora_path, self.lora_weight, device=self.device)
                 if self.verbose:
-                    logging.info(f"✅ Loaded low noise LoRA: {self.lora_path}")
+                    logging.info(f"Loaded low noise LoRA: {self.lora_path}")
             
             if self.lora_high_path:
                 self.pipeline = merge_lora(self.pipeline, self.lora_high_path, self.lora_high_weight, device=self.device, sub_transformer_name="transformer_2")
                 if self.verbose:
-                    logging.info(f"✅ Loaded high noise LoRA: {self.lora_high_path}")
+                    logging.info(f"Loaded high noise LoRA: {self.lora_high_path}")
             
             self.lora_loaded = True
         except Exception as e:
             if self.verbose:
-                logging.error(f"❌ Failed to load LoRA: {e}")
+                logging.error(f"Failed to load LoRA: {e}")
             self.lora_loaded = False
     
     def _unload_lora(self):
@@ -480,10 +481,10 @@ class UltimateFastVideoLoRAOptimizer:
             
             self.lora_loaded = False
             if self.verbose:
-                logging.info("🎨 LoRA models unloaded")
+                logging.info("LoRA models unloaded")
         except Exception as e:
             if self.verbose:
-                logging.error(f"❌ Failed to unload LoRA: {e}")
+                logging.error(f"Failed to unload LoRA: {e}")
     
     def _apply_quality_optimizations(self, quality_preset: str, num_inference_steps: int):
         """Apply quality-specific optimizations."""
@@ -502,17 +503,17 @@ class UltimateFastVideoLoRAOptimizer:
             self.pipeline.transformer_2.share_teacache(transformer=self.pipeline.transformer)
             
             if self.verbose:
-                logging.info(f"⚡ TeaCache enabled (threshold={teacache_threshold})")
+                logging.info(f"TeaCache enabled (threshold={teacache_threshold})")
         
         # Apply Token Merging if available
         if OPTIMIZATIONS_STATUS['tome'] and preset['token_merge_ratio'] > 0:
             try:
                 tomesd.apply_patch(self.pipeline, ratio=preset['token_merge_ratio'])
                 if self.verbose:
-                    logging.info(f"⚡ Token Merging enabled (ratio={preset['token_merge_ratio']})")
+                    logging.info(f"Token Merging enabled (ratio={preset['token_merge_ratio']})")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  Token Merging failed: {e}")
+                    logging.warning(f"Token Merging failed: {e}")
         
         # Apply FP8 quantization if supported and enabled
         if (OPTIMIZATIONS_STATUS['fp8'] and self.supports_fp8 and preset['enable_fp8']):
@@ -522,10 +523,10 @@ class UltimateFastVideoLoRAOptimizer:
                 convert_weight_dtype_wrapper(self.pipeline.transformer, self.weight_dtype)
                 convert_weight_dtype_wrapper(self.pipeline.transformer_2, self.weight_dtype)
                 if self.verbose:
-                    logging.info("⚡ FP8 quantization enabled")
+                    logging.info("FP8 quantization enabled")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  FP8 quantization failed: {e}")
+                    logging.warning(f"FP8 quantization failed: {e}")
         
         # Apply compilation if enabled
         if preset['enable_compilation'] and torch.__version__ >= "2.0":
@@ -535,10 +536,10 @@ class UltimateFastVideoLoRAOptimizer:
                 for i in range(len(self.pipeline.transformer_2.blocks)):
                     self.pipeline.transformer_2.blocks[i] = torch.compile(self.pipeline.transformer_2.blocks[i])
                 if self.verbose:
-                    logging.info("⚡ PyTorch compilation enabled")
+                    logging.info("PyTorch compilation enabled")
             except Exception as e:
                 if self.verbose:
-                    logging.warning(f"⚠️  Compilation failed: {e}")
+                    logging.warning(f"Compilation failed: {e}")
     
     def generate(self, prompt: Union[str, List[str]], quality: str = "balanced",
                  video_length: int = 81, sample_size: List[int] = [480, 832],
@@ -575,9 +576,9 @@ class UltimateFastVideoLoRAOptimizer:
         
         if self.verbose:
             preset_desc = self.QUALITY_PRESETS[quality]['description']
-            logging.info(f"\n🎬 GENERATING {len(prompts)} VIDEO{'S' if len(prompts) > 1 else ''}")
-            logging.info(f"📝 Quality: {quality} ({preset_desc})")
-            logging.info(f"🎨 LoRA: {'✅ Enabled' if self.lora_loaded else '❌ Disabled'}")
+            logging.info(f"\n GENERATING {len(prompts)} VIDEO{'S' if len(prompts) > 1 else ''}")
+            logging.info(f"Quality: {quality} ({preset_desc})")
+            logging.info(f"LoRA: {'Enabled' if self.lora_loaded else 'Disabled'}")
             logging.info("=" * 60)
         
         # Get settings for this quality level
@@ -599,7 +600,7 @@ class UltimateFastVideoLoRAOptimizer:
         
         for i, current_prompt in enumerate(prompts):
             if self.verbose and len(prompts) > 1:
-                logging.info(f"🎯 Generating video {i+1}/{len(prompts)}: {current_prompt[:50]}...")
+                logging.info(f"Generating video {i+1}/{len(prompts)}: {current_prompt[:50]}...")
             
             start_time = time.time()
             
@@ -632,7 +633,7 @@ class UltimateFastVideoLoRAOptimizer:
             fps_actual = video_length / generation_time
             
             if self.verbose:
-                logging.info(f"⏱️  Generated in {generation_time:.2f}s ({fps_actual:.2f} FPS)")
+                logging.info(f"⏱Generated in {generation_time:.2f}s ({fps_actual:.2f} FPS)")
             
             generated_videos.append(sample)
             
@@ -651,7 +652,7 @@ class UltimateFastVideoLoRAOptimizer:
                 save_videos_grid(sample, output_path, fps=fps)
                 
                 if self.verbose:
-                    logging.info(f"💾 Saved: {output_path}")
+                    logging.info(f"Saved: {output_path}")
         
         # Print summary
         if self.verbose:
@@ -659,10 +660,10 @@ class UltimateFastVideoLoRAOptimizer:
             avg_fps = video_length / avg_time
             estimated_baseline = avg_time * 15  # Assume 15x speedup
             
-            logging.info(f"\n🏆 GENERATION COMPLETE!")
-            logging.info(f"📊 Average time: {avg_time:.2f}s")
-            logging.info(f"🎯 Average FPS: {avg_fps:.2f}")
-            logging.info(f"⚡ Estimated speedup: ~15x (baseline: {estimated_baseline:.2f}s)")
+            logging.info(f"\n GENERATION COMPLETE!")
+            logging.info(f"Average time: {avg_time:.2f}s")
+            logging.info(f"Average FPS: {avg_fps:.2f}")
+            logging.info(f"Estimated speedup: ~15x (baseline: {estimated_baseline:.2f}s)")
         
         return generated_videos if is_batch else generated_videos[0]
     
@@ -737,7 +738,7 @@ def main():
     )
     
     if not args.no_save:
-        print(f"\n🎉 Generation complete! Videos saved to {args.output_dir}/")
+        print(f"\n Generation complete! Videos saved to {args.output_dir}/")
 
 
 if __name__ == "__main__":

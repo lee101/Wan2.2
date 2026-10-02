@@ -1,8 +1,8 @@
-# 🚀 WAN2.2 Ultra-Fast Quickstart Guide
+# WAN2.2 Ultra-Fast Quickstart Guide
 
 Get 15-25x faster video generation with cutting-edge optimizations in just 5 minutes!
 
-## ⚡ Quick Setup (5 minutes)
+## Quick Setup (5 minutes)
 
 ### 1. Install Optimizations
 ```bash
@@ -38,7 +38,7 @@ python examples/ultra_fast_generation.py \
     --prompt "The cat starts playing with a colorful ball"
 ```
 
-## 🎯 Expected Performance
+## Expected Performance
 
 | Hardware | Resolution | Baseline | Ultra-Fast | Speedup |
 |----------|------------|----------|------------|---------|
@@ -47,7 +47,7 @@ python examples/ultra_fast_generation.py \
 | H100     | 1280×720  | 30s      | 1.8s       | **17x** |
 | A100     | 1280×720  | 35s      | 2.1s       | **17x** |
 
-## 🛠️ Optimization Levels
+## Optimization Levels
 
 Choose your speed vs quality balance:
 
@@ -69,7 +69,7 @@ Choose your speed vs quality balance:
 - **Uses**: Flash Attention + Memory optimizations
 - **Best for**: Development and testing
 
-## 🎮 One-Line Examples
+## One-Line Examples
 
 ### Text-to-Video (T2V)
 ```bash
@@ -105,7 +105,7 @@ python examples/ultra_fast_generation.py \
     --prompt "Painting comes alive with gentle magical effects"
 ```
 
-## 🏆 Benchmark Your Setup
+## Benchmark Your Setup
 
 Test all optimizations:
 ```bash
@@ -122,7 +122,7 @@ python examples/optimized_t2v_12b.py \
     --optimization_level maximum
 ```
 
-## 🎛️ Advanced Configuration
+## Advanced Configuration
 
 ### Hardware-Specific Settings
 
@@ -177,20 +177,20 @@ python examples/optimized_i2v.py \
     --multi_size_benchmark
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Installation Issues
 ```bash
 # Check optimization status
 python -c "
-try: import cache_dit; print('✅ TaylorSeer')
-except: print('❌ TaylorSeer - run: pip install cache-dit')
+try: import cache_dit; print('TaylorSeer')
+except: print('TaylorSeer - run: pip install cache-dit')
 
-try: import flash_attn; print('✅ Flash Attention')  
-except: print('❌ Flash Attention - run: pip install flash-attn')
+try: import flash_attn; print('Flash Attention')
+except: print('Flash Attention - run: pip install flash-attn')
 
-try: import tomesd; print('✅ Token Merging')
-except: print('❌ Token Merging - run: pip install tomesd')
+try: import tomesd; print('Token Merging')
+except: print('Token Merging - run: pip install tomesd')
 "
 
 # Reinstall problematic packages
@@ -215,7 +215,7 @@ python generate.py --task t2v-A14B --ckpt_dir ./checkpoints/t2v/
 - Lower token merge ratio by editing script: `ratio=0.2`
 - Increase TaylorSeer threshold by editing script: `threshold=0.05`
 
-## 📊 Optimization Breakdown
+## Optimization Breakdown
 
 ### What Makes It So Fast?
 
@@ -236,7 +236,7 @@ python generate.py --task t2v-A14B --ckpt_dir ./checkpoints/t2v/
 - **Mixed Precision**: FP16/BF16 cuts memory usage by 50%
 - **Gradient Checkpointing**: Trade compute for memory when needed
 
-## 🎉 What's Next?
+## What's Next?
 
 ### Extend Your Setup
 - **Real-ESRGAN**: 4x video upscaling post-processing
@@ -255,7 +255,7 @@ python generate.py --task t2v-A14B --ckpt_dir ./checkpoints/t2v/
 
 ---
 
-## 💡 Pro Tips
+## Pro Tips
 
 1. **Warm up** your GPU with a test generation before benchmarking
 2. **Use consistent prompts** for fair performance comparisons  
@@ -263,7 +263,7 @@ python generate.py --task t2v-A14B --ckpt_dir ./checkpoints/t2v/
 4. **Start with medium optimization** and increase if quality is acceptable
 5. **Batch multiple generations** when possible for better GPU utilization
 
-## 🎯 Ready to Generate?
+## Ready to Generate?
 
 ```bash
 # The fastest possible generation
@@ -278,4 +278,4 @@ python examples/ultra_fast_generation.py \
 # Expected: ~2-3 seconds on RTX 4090 (vs 45+ seconds baseline)
 ```
 
-**Enjoy 15-25x faster video generation! 🚀**
+**Enjoy 15-25x faster video generation! **

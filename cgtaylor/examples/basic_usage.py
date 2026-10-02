@@ -372,10 +372,10 @@ if __name__ == "__main__":
         if args.example == "batch" or args.example == "all":
             batch_generation_example(args.checkpoint_dir, args.model_variant)
             
-        print("\n✅ Examples completed successfully!")
+        print("\n Examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Example failed: {e}")
+        print(f"Example failed: {e}")
         import traceback
         traceback.print_exc()
         exit(1)

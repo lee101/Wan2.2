@@ -300,11 +300,11 @@ def main():
             logger.info(f"Compute Capability: {props.major}.{props.minor}")
             
             if props.total_memory / 1e9 >= 24:
-                logger.info("✓ GPU has sufficient VRAM for TI2V-5B")
+                logger.info("GPU has sufficient VRAM for TI2V-5B")
             else:
-                logger.warning("⚠ GPU may not have sufficient VRAM. Use with caution.")
+                logger.warning("GPU may not have sufficient VRAM. Use with caution.")
         else:
-            logger.error("✗ CUDA not available")
+            logger.error("CUDA not available")
         
         if args.check_gpu:
             return

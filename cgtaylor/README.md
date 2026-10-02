@@ -2,7 +2,7 @@
 
 This directory contains the **CG-Taylor MoE (Mixture-of-Experts) acceleration** implementation for Wan 2.2, providing significant speedup for video generation while maintaining high quality output.
 
-## 🚀 Key Features
+## Key Features
 
 - **3-5x Speedup**: Achieves significant acceleration in video generation
 - **MoE-Aware Caching**: Separate Taylor caches for high-noise and low-noise experts
@@ -11,14 +11,14 @@ This directory contains the **CG-Taylor MoE (Mixture-of-Experts) acceleration** 
 - **Dual Model Support**: Compatible with both A14B and TI2V-5B variants
 - **Memory Efficient**: CPU offloading and intelligent cache management
 
-## 📋 Requirements
+## Requirements
 
 - PyTorch >= 1.13.0
 - Wan 2.2 base installation
 - CUDA-compatible GPU (recommended: >= 24GB VRAM)
 - Python >= 3.8
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 The CG-Taylor MoE acceleration adapts the original CG-Taylor technique to work with Wan 2.2's dual-model architecture:
 
@@ -47,13 +47,13 @@ The CG-Taylor MoE acceleration adapts the original CG-Taylor technique to work w
 - **Low-Noise Expert**: Conservative caching (threshold: 0.13) to preserve fine details  
 - **Dynamic Switching**: Based on denoising timestep and signal-to-noise ratio
 
-## 🛠️ Installation
+## Installation
 
 1. Ensure Wan 2.2 is properly installed and working
 2. Copy the `cgtaylor/` directory to your Wan 2.2 root directory
 3. No additional installation required - uses existing dependencies
 
-## 🎯 Quick Start
+## Quick Start
 
 ### Basic Usage
 
@@ -98,7 +98,7 @@ wan_t2v = create_cg_taylor_wan_t2v(
 video = wan_t2v.generate(input_prompt="Northern lights in the Arctic")
 ```
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
 
 ### A14B Model (1280×720, 81 frames)
 
@@ -117,7 +117,7 @@ video = wan_t2v.generate(input_prompt="Northern lights in the Arctic")
 | CG-Taylor Conservative | 38s | 2.5x | 33.1dB | 0.97 |
 | CG-Taylor Balanced | 32s | 3.0x | 32.0dB | 0.96 |
 
-## ⚙️ Configuration Options
+## Configuration Options
 
 ### Threshold Settings
 
@@ -155,7 +155,7 @@ config = {
 }
 ```
 
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ### Custom Expert Switching
 
@@ -182,7 +182,7 @@ cache_dic["cache_eviction_policy"] = "expert_lru"
 cache_dic["max_cache_memory"] = "auto"
 ```
 
-## 🧪 Testing & Validation
+## Testing & Validation
 
 ### Run Basic Tests
 
@@ -215,7 +215,7 @@ python basic_usage.py \
     --model-variant A14B
 ```
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 cgtaylor/
@@ -236,7 +236,7 @@ cgtaylor/
     └── basic_usage.py                 # Usage examples
 ```
 
-## 🔬 Technical Details
+## Technical Details
 
 ### MoE Cache Architecture
 
@@ -270,7 +270,7 @@ cache = {
 - **Adaptive Thresholds**: Different thresholds for different experts
 - **Fallback Mechanism**: Automatic fallback for problematic cases
 
-## 🎯 Best Practices
+## Best Practices
 
 ### For Maximum Quality
 
@@ -293,7 +293,7 @@ cache = {
 3. Monitor cache hit rates for optimization
 4. Implement quality checks for critical applications
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -322,7 +322,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 cache_dic["debug_mode"] = True
 ```
 
-## 📝 Citation
+## Citation
 
 If you use this CG-Taylor MoE implementation, please cite the original CG-Taylor paper and acknowledge this adaptation:
 
@@ -335,18 +335,18 @@ If you use this CG-Taylor MoE implementation, please cite the original CG-Taylor
 }
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Follow the existing code style and documentation format
 2. Add comprehensive tests for new features
 3. Update documentation and examples
 4. Ensure compatibility with both A14B and TI2V-5B variants
 
-## 📄 License
+## License
 
 This implementation follows the same license as the original Wan 2.2 codebase (Apache 2.0).
 
-## 🔗 References
+## References
 
 - Original CG-Taylor implementation: [PaddleMIX Fast-Diffusers](https://github.com/PaddlePaddle/PaddleMIX/tree/develop/ppdiffusers/examples/Fast-Diffusers)
 - Wan 2.2 Paper: [Wan-AI/Wan2.2](https://github.com/alibaba/Wan)

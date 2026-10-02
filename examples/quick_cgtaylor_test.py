@@ -40,7 +40,7 @@ def test_taylor_cache():
     expert_name, cache, config = adapter.select_expert_cache(400)  # Low noise
     assert expert_name == "low_noise", f"Expected low_noise, got {expert_name}"
     
-    print("✓ Expert selection works correctly")
+    print("Expert selection works correctly")
     
     # Test feature caching
     dummy_features = torch.randn(1, 100, 512)
@@ -50,11 +50,11 @@ def test_taylor_cache():
     
     # Test prediction
     predicted = adapter.predict_features(870)
-    print(f"✓ Taylor prediction: {'successful' if predicted is not None else 'not ready'}")
+    print(f"Taylor prediction: {'successful' if predicted is not None else 'not ready'}")
     
     # Test statistics
     stats = adapter.get_acceleration_stats()
-    print(f"✓ Statistics: {stats}")
+    print(f"Statistics: {stats}")
     
     return True
 
@@ -65,16 +65,16 @@ def test_integration():
     
     try:
         from wan.text2video_accelerated import WanT2VAccelerated
-        print("✓ WanT2VAccelerated import successful")
+        print("WanT2VAccelerated import successful")
     except ImportError as e:
-        print(f"✗ WanT2VAccelerated import failed: {e}")
+        print(f"WanT2VAccelerated import failed: {e}")
         return False
     
     try:
         from wan.acceleration import WanCGTaylorAdapter
-        print("✓ WanCGTaylorAdapter import successful")
+        print("WanCGTaylorAdapter import successful")
     except ImportError as e:
-        print(f"✗ WanCGTaylorAdapter import failed: {e}")
+        print(f"WanCGTaylorAdapter import failed: {e}")
         return False
     
     return True
@@ -93,11 +93,11 @@ def test_memory_management():
     
     # Test optimization for different resolutions
     adapter.optimize_for_resolution((1280, 720), 81, batch_size=1)
-    print("✓ Resolution optimization completed")
+    print("Resolution optimization completed")
     
     # Test cache clearing
     adapter.clear_caches()
-    print("✓ Cache clearing completed")
+    print("Cache clearing completed")
     
     return True
 
@@ -116,24 +116,24 @@ def main():
     try:
         success &= test_taylor_cache()
     except Exception as e:
-        print(f"✗ Taylor cache test failed: {e}")
+        print(f"Taylor cache test failed: {e}")
         success = False
     
     try:
         success &= test_integration()
     except Exception as e:
-        print(f"✗ Integration test failed: {e}")
+        print(f"Integration test failed: {e}")
         success = False
     
     try:
         success &= test_memory_management()
     except Exception as e:
-        print(f"✗ Memory management test failed: {e}")
+        print(f"Memory management test failed: {e}")
         success = False
     
     print("\n" + "=" * 50)
     if success:
-        print("✓ All quick tests PASSED!")
+        print("All quick tests PASSED!")
         print("\nTo use CG-Taylor acceleration:")
         print("1. Use WanT2VAccelerated instead of WanT2V")
         print("2. Set enable_cgtaylor=True (default)")
@@ -143,7 +143,7 @@ def main():
         print("model = WanT2VAccelerated(config, checkpoint_dir)")
         print("video = model.generate('your prompt')")
     else:
-        print("✗ Some tests FAILED!")
+        print("Some tests FAILED!")
         print("Check the error messages above for details.")
     
     print("=" * 50)
